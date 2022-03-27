@@ -51,7 +51,6 @@ lint.py:1 at module level:
 - `OSMPythonTools`
 - `osmnx`
 - `networkx`
-- `...`
 
 ## Interface draft
 - Предполагается, что пользователь сможет задать город;
