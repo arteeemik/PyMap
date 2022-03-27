@@ -1,0 +1,28 @@
+#!/bin/bash
+
+echo '#!/usr/bin/env bash
+
+# Получаем список файлов, которые пользователь пытается закоммитить,
+# и выбираем из них те, которые заканчиваются на .
+CHANGED_PYTHON_FILES=
+
+if [ -z "" ]
+then
+   echo "No Python files found. No reason to run checks."
+   exit 0
+fi
+
+# Включаем режим, в котором любая ошибка сразу же завершит весь скрипт ошибкой.
+set -e
+
+echo "Start black formating..."
+black --check
+echo "Black formating success."
+python lint.py -p ../pymap/
+echo "Start pydocstyle checker starting..."
+pydocstyle
+echo "Pydocstyle checker success."
+
+echo "All checks successfully passed."' > .git/hooks/pre-commit
+
+chmod +x .git/hooks/pre-commit
