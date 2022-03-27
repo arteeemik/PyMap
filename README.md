@@ -1,9 +1,15 @@
 # PyMap
 
 ## Как настроить pre-commit хук
+Установить нужные py пакеты:
+```bash
+pip install pydocstyle
+pip install pylint
+pip install black
+```
 Нужно выполнить следующую команду:
 ```bash
-bash pre-commit-hook
+bash linters/pre-commit-hook
 ```
 После этого все файлы, которые будут пытаться добавится в коммит, будут предварительно обрабатываться авто форматером black.
 Потом проверяться линтером pylint.
