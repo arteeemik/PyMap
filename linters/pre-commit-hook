@@ -14,12 +14,14 @@ fi
 set -e
 
 echo "Start black formating..."
-black $CHANGED_PYTHON_FILES
+black $CHANGED_PYTHON_FILES --config linters/pyproject.toml
 git add $CHANGED_PYTHON_FILES
 echo "Black formating success."
-python lint.py -p ../pymap/
-echo "Start pydocstyle checker starting..."
-pydocstyle $CHANGED_PYTHON_FILES
+echo "PyLint checker starting..."
+pylint $CHANGED_PYTHON_FILES
+echo "PyLint checker success."
+echo "PyDocStyle checker starting..."
+pydocstyle $CHANGED_PYTHON_FILES --config linters/pyproject.toml
 echo "Pydocstyle checker success."
 
 echo "All checks successfully passed. "' > .git/hooks/pre-commit
