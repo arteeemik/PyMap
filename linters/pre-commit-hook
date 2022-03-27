@@ -24,6 +24,6 @@ echo "PyDocStyle checker starting..."
 pydocstyle $CHANGED_PYTHON_FILES --config linters/pyproject.toml
 echo "Pydocstyle checker success."
 
-echo "All checks successfully passed."' > .git/hooks/pre-commit
+echo "All checks successfully passed. "' > .git/hooks/pre-commit
 
 chmod +x .git/hooks/pre-commit
