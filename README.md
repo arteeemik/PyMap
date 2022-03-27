@@ -1,6 +1,7 @@
 # PyMap
 
 ## Как настроить pre-commit хук
+Нужно выполнить следующую команду:
 ```bash
 bash pre-commit-hook
 ```
