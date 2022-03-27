@@ -1,0 +1,27 @@
+echo '#!/usr/bin/env bash
+
+# Получаем список файлов, которые пользователь пытается закоммитить,
+# и выбираем из них те, которые заканчиваются на `.py`.
+CHANGED_PYTHON_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep ".py\$")
+
+if [ -z "$CHANGED_PYTHON_FILES" ]
+then
+   echo "No Python files found. No reason to run checks."
+   exit 0
+fi
+
+# Включаем режим, в котором любая ошибка сразу же завершит весь скрипт ошибкой.
+set -e
+
+echo "Start black formating..."
+black $CHANGED_PYTHON_FILES
+git add $CHANGED_PYTHON_FILES
+echo "Black formating success."
+python lint.py -p ../pymap/
+echo "Start pydocstyle checker starting..."
+pydocstyle $CHANGED_PYTHON_FILES
+echo "Pydocstyle checker success."
+
+echo "All checks successfully passed."' > .git/hooks/pre-commit
+
+chmod +x .git/hooks/pre-commit
