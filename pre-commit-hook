@@ -22,6 +22,6 @@ echo "Start pydocstyle checker starting..."
 pydocstyle $CHANGED_PYTHON_FILES
 echo "Pydocstyle checker success."
 
-echo "All checks successfully passed."' > .git/hooks/pre-commit
+echo "All checks successfully passed. "' > .git/hooks/pre-commit
 
 chmod +x .git/hooks/pre-commit
