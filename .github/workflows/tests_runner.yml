@@ -1,9 +1,9 @@
-name: Formatter Checker
+name: Tests Checker
 
 on: [pull_request]
 
 jobs:
-  build:
+  run_tests:
 
     runs-on: ubuntu-latest
 
@@ -20,11 +20,7 @@ jobs:
         environ/bin/python3 -m pip install --upgrade pip
         source environ/bin/activate
         bash linters/install_deps.sh
-    - name: Run PyLint
+    - name: Run tests
       run: |
         source environ/bin/activate
-        pylint --output-format=colorized $(git ls-files './*.py' | grep ".py\$" | grep -v "tests")
-    - name: Run PyDocStyle
-      run: |
-        source environ/bin/activate
-        pydocstyle $(git ls-files './*.py' | grep ".py\$" | grep -v "tests")
+        pytest

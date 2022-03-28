@@ -7,6 +7,7 @@ PACKAGES=(
   "osmnx"
   "networkx"
   "scikit-learn"
+  "pytest"
 )
 
 echo "Starting to check and install packages..."
