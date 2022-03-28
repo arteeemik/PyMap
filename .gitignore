@@ -1,4 +1,6 @@
 /environ/
 .DS_Store
+*.DS_Store
+*.ipynb*
 .idea/
-data/.DS_Store
+*cache

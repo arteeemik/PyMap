@@ -5,6 +5,8 @@ PACKAGES=(
   "pylint"
   "black"
   "osmnx"
+  "networkx"
+  "scikit-learn"
 )
 
 echo "Starting to check and install packages..."
