@@ -8,6 +8,7 @@ PACKAGES=(
   "networkx"
   "scikit-learn"
   "pytest"
+  "geopandas"
 )
 
 echo "Starting to check and install packages..."
