@@ -24,7 +24,7 @@ class BoundingBox:
         """
         return [(self.left_down[0] + self.right_up[0]) / 2.0, (self.left_down[1] + self.right_up[1]) / 2.0]
 
-    def scaling(self, scaling_param: float) -> BoundingBox:
+    def scaling(self, scaling_param: float):
         """
         coef: коэфициент расширения
 
@@ -32,8 +32,8 @@ class BoundingBox:
         """
         center = self.center()
         diag = [self.right_up[0] - self.left_down[0], self.right_up[1] - self.left_down[1]]
-        self.extend([center[0] + diad[0] * scaling_param * 0.5, center[1] + diad[1] * scaling_param * 0.5])
-        self.extend([center[0] - diad[0] * scaling_param * 0.5, center[1] - diad[1] * scaling_param * 0.5])
+        self.extend(center[0] + diag[0] * scaling_param * 0.5, center[1] + diag[1] * scaling_param * 0.5)
+        self.extend(center[0] - diag[0] * scaling_param * 0.5, center[1] - diag[1] * scaling_param * 0.5)
         return self
 
     def extend(self, px: float, py: float) -> None:
@@ -80,4 +80,4 @@ def visualize_route(graph: Graph, path: tp.List[int], tags: tp.Dict[str, bool]):
 if __name__ == '__main__':
     graph = Graph('San Francisco, California, United States')
     _, path = graph.get_shortest_path_between_two_points((37.733795, -122.446747), (37.76521245036753, -122.46308098483024))
-    visualize_route(graph, path)
+    visualize_route(graph, path, {'building': True})
