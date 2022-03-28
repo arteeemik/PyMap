@@ -19,7 +19,7 @@ jobs:
         python3 -m venv environ
         environ/bin/python3 -m pip install --upgrade pip
         source environ/bin/activate
-        bash linters/install_reqs
+        bash linters/install_deps.sh
     - name: Run PyLint
       run: |
         source environ/bin/activate
