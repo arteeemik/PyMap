@@ -27,4 +27,4 @@ jobs:
     - name: Run PyDocStyle
       run: |
         source environ/bin/activate
-        pydocstyle -output-format=colorized $(git ls-files './*.py')
+        pydocstyle $(git ls-files './*.py')
