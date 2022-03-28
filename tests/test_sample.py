@@ -1,6 +1,3 @@
-"""Test sample."""
-
-
 # content of test_sample.py
 def func(name_x):
     return name_x + 1
