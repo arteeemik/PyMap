@@ -8,10 +8,10 @@ bash linters/install_deps.sh
 
 ## Как настроить pre-commit хук
 Установить нужные py пакеты:
-```bash
-pip install pydocstyle
-pip install pylint
-pip install black
+```
+python3 -m venv environ
+source environ/bin/activate
+bash linters/install_deps.sh
 ```
 Нужно выполнить следующую команду:
 ```bash
