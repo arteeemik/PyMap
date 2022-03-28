@@ -23,8 +23,8 @@ jobs:
     - name: Run PyLint
       run: |
         source environ/bin/activate
-        pylint --output-format=colorized $(git ls-files './*.py')
+        pylint --output-format=colorized $(git ls-files './*.py' | grep ".py\$" | grep -v "tests")
     - name: Run PyDocStyle
       run: |
         source environ/bin/activate
-        pydocstyle $(git ls-files './*.py')
+        pydocstyle $(git ls-files './*.py' | grep ".py\$" | grep -v "tests")
