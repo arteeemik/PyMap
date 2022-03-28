@@ -84,7 +84,7 @@ class Graph:
         first_point: typing.Tuple[float, float],
         second_point: typing.Tuple[float, float],
         metrica_type: MetricaType = MetricaType.LENGTH,
-    ) -> (int, typing.List[int]):
+    ) -> (float, typing.List[int]):
         # pylint: disable=unbalanced-tuple-unpacking
         """
         Возвращает кратчайший путь между двумя координатами в области графа.
@@ -103,12 +103,10 @@ class Graph:
 
         Returns
         ---------
-        (distance, shortest_route) : (int, typing.List[int])
+        (distance, shortest_route) : (float, typing.List[int])
             distance:
-                Если optimizer_type == MetricaType.LENGTH: длина в метрах
-                    округленная до целых чисел.
-                Если optimizer_type == MetricaType.TIME: время в часах,
-                    которое будет затрачено на маршрут.
+                Если optimizer_type == MetricaType.LENGTH: длина в метрах.
+                Если optimizer_type == MetricaType.TIME: время в часах.
             shortest_route - путь от first_point до second_point в виде списка
                 айдишников объектов из графа.
         """
@@ -123,4 +121,4 @@ class Graph:
             self.graph, shortest_route, metrica_type.value
         )
 
-        return round(sum(edge_lengths)), shortest_route
+        return sum(edge_lengths), shortest_route
