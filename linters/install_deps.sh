@@ -8,6 +8,7 @@ PACKAGES=(
   "networkx"
   "scikit-learn"
   "pytest"
+  "toml"
 )
 
 echo "Starting to check and install packages..."
