@@ -52,6 +52,7 @@ def find_shortest_path_all_nodes(
 ) -> Tuple[float, List[Node]]:
     """
     Возвращает кратчайший путь для обхода всех вершин.
+
     Алгоритм - полный перебор всевозможных путей.
 
     Parameters

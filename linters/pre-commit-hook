@@ -13,7 +13,6 @@ fi
 
 # Включаем режим, в котором любая ошибка сразу же завершит весь скрипт ошибкой.
 set -e
-echo $NEED_TO_CHECK_PYTHON_FILES
 
 echo "Start black formating..."
 black $CHANGED_PYTHON_FILES --config linters/pyproject.toml
