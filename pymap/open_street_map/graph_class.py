@@ -7,6 +7,8 @@ from osmnx import distance as osmnx_distance
 from osmnx import utils_graph
 import networkx as nx
 
+from pymap.open_street_map.models import Point
+
 
 class MovementType(enum.Enum):
     """Тип способа передвижения для задания графа области."""
@@ -56,9 +58,7 @@ class Graph:
             place_full_name, network_type=movement_type.value
         )
 
-    def get_nearest_nodes(
-        self, points: typing.List[typing.Tuple[float, float]]
-    ) -> typing.List[int]:
+    def get_nearest_nodes(self, points: typing.List[Point]) -> typing.List[int]:
         """
         Возвращает ids ближайших вершин к координатам в points в графе.
 
@@ -71,8 +71,8 @@ class Graph:
         ids : typing.List[int]
            IDs ближайших вершины к координатам из points в графе.
         """
-        latitude_coordinates = [point[0] for point in points]
-        longitude_coordinates = [point[1] for point in points]
+        latitude_coordinates = [point.latitude_coordinate for point in points]
+        longitude_coordinates = [point.longitude_coordinate for point in points]
         return list(
             osmnx_distance.nearest_nodes(
                 self.graph, longitude_coordinates, latitude_coordinates
@@ -81,8 +81,8 @@ class Graph:
 
     def get_shortest_path_between_two_points(
         self,
-        first_point: typing.Tuple[float, float],
-        second_point: typing.Tuple[float, float],
+        first_point: Point,
+        second_point: Point,
         metrica_type: MetricaType = MetricaType.LENGTH,
     ) -> (float, typing.List[int]):
         # pylint: disable=unbalanced-tuple-unpacking

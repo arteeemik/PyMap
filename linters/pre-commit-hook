@@ -13,7 +13,6 @@ fi
 
 # Включаем режим, в котором любая ошибка сразу же завершит весь скрипт ошибкой.
 set -e
-echo $NEED_TO_CHECK_PYTHON_FILES
 
 echo "Start black formating..."
 black $CHANGED_PYTHON_FILES --config linters/pyproject.toml
@@ -27,10 +26,10 @@ then
 fi
 
 echo "PyLint checker starting..."
-pylint $NEED_TO_CHECK_PYTHON_FILES
+pylint --rcfile=linters/pylintrc $NEED_TO_CHECK_PYTHON_FILES
 echo "PyLint checker success."
 echo "PyDocStyle checker starting..."
-pydocstyle $NEED_TO_CHECK_PYTHON_FILES --config linters/pyproject.toml
+pydocstyle $NEED_TO_CHECK_PYTHON_FILES --config=linters/pyproject.toml
 echo "Pydocstyle checker success."
 
 echo "All checks successfully passed. "' > .git/hooks/pre-commit
