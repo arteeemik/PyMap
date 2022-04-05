@@ -18,5 +18,5 @@ exclude = '''
 '''
 
 [tool.pydocstyle]
-match-dir='(?!environ|tests|\.).*'
+match-dir='(?!environ|tests|basic_ui|\.).*'
 match='(?!test_|__init).*\.py'
