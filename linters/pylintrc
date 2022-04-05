@@ -2,7 +2,9 @@
 
 # Files or directories to be skipped. They should be base names, not
 # paths.
-ignore=tests
+ignore=tests,welcome_page.py
+
+extension-pkg-whitelist=PyQt5
 
 [FORMAT]
 
@@ -11,3 +13,7 @@ max-line-length=80
 
 # Maximum number of lines in a module
 max-module-lines=1000
+
+[MESSAGES CONTROL]
+# globally disable pylint checks (comma separated)
+disable=W0511

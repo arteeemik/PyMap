@@ -9,6 +9,7 @@ PACKAGES=(
   "scikit-learn"
   "pytest"
   "toml"
+  "pyqt5"
 )
 
 echo "Starting to check and install packages..."

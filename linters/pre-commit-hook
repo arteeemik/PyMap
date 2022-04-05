@@ -29,7 +29,7 @@ echo "PyLint checker starting..."
 pylint --rcfile=linters/pylintrc $NEED_TO_CHECK_PYTHON_FILES
 echo "PyLint checker success."
 echo "PyDocStyle checker starting..."
-pydocstyle $NEED_TO_CHECK_PYTHON_FILES --config=linters/pyproject.toml
+pydocstyle --config=linters/pyproject.toml
 echo "Pydocstyle checker success."
 
 echo "All checks successfully passed. "' > .git/hooks/pre-commit
