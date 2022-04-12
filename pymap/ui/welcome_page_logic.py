@@ -27,6 +27,7 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow):
         """
         super().__init__(parent)
         self.setup_ui(self)
+        self.lang = "ru"
         self.address_number = 0
         self.active_addresses = set()
         self.set_basic_slots()
@@ -40,6 +41,20 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow):
         self.city_line_edit.editingFinished.connect(self.set_basic_address_view)
         self.new_address_push_button.clicked.connect(self.add_address)
         self.get_route_push_button.clicked.connect(self.get_route)
+        self.comboBox.currentIndexChanged.connect(self.localization_change_func)
+
+    def localization_change_func(self, index):
+        """Переводит интерфейс на соответствующий язык."""
+        self.lang = self.comboBox.itemData(index)
+        for i in self.active_addresses:
+            label = f"address_{i}_label"
+            del_button = f"delete_address_{i}"
+            self.__getattribute__(label).setText(
+                self.labels_names["address_label"][self.lang]
+            )
+            self.__getattribute__(del_button).setText(
+                self.labels_names["delete_address"][self.lang]
+            )
 
     def get_route(self) -> None:
         """
@@ -56,8 +71,10 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow):
                 line_edit = f"address_{i}_line_edit"
                 if self.__getattribute__(line_edit).text() == "":
                     msg = QtWidgets.QMessageBox()
-                    msg.setWindowTitle("Ошибка построения маршрута")
-                    msg.setText("Удалите незаполненные адреса")
+                    msg.setWindowTitle(
+                        self.labels_names["route_error_title"][self.lang]
+                    )
+                    msg.setText(self.labels_names["route_error_msg"][self.lang])
                     msg.setIcon(QtWidgets.QMessageBox.Warning)
                     msg.setStandardButtons(
                         QtWidgets.QMessageBox.Cancel | QtWidgets.QMessageBox.Yes
@@ -156,8 +173,12 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow):
         self.address_grid_layout.addLayout(
             self.__getattribute__(layout), self.address_number, 0, 1, 1
         )
-        self.__getattribute__(label).setText("Введите адрес:")
-        self.__getattribute__(del_button).setText("Удалить")
+        self.__getattribute__(label).setText(
+            self.labels_names["address_label"][self.lang]
+        )
+        self.__getattribute__(del_button).setText(
+            self.labels_names["delete_address"][self.lang]
+        )
         self.__getattribute__(del_button).clicked.connect(
             lambda state, x=self.address_number: self.del_address(x)
         )
@@ -180,8 +201,12 @@ class Window(QtWidgets.QMainWindow, Ui_MainWindow):
         """
         if len(self.active_addresses) == 1:
             msg = QtWidgets.QMessageBox()
-            msg.setWindowTitle("Ошибка")
-            msg.setText("Нельзя удалить единственный адрес")
+            msg.setWindowTitle(
+                self.labels_names["single_address_error_title"][self.lang]
+            )
+            msg.setText(
+                self.labels_names["single_address_error_msg"][self.lang]
+            )
             msg.setIcon(QtWidgets.QMessageBox.Warning)
 
             msg.exec_()

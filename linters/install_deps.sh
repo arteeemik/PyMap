@@ -10,6 +10,7 @@ PACKAGES=(
   "pytest"
   "toml"
   "pyqt5"
+  "pyyaml"
 )
 
 echo "Starting to check and install packages..."

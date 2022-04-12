@@ -3,10 +3,17 @@ The file is converted from pymap/ui/qt_basic_ui/welcome_page.ui to python.
 Defines basic ui structure.
 """
 from PyQt5 import QtCore, QtGui, QtWidgets
+import yaml
 
 
 class Ui_MainWindow(object):
+    def _get_namings(self):
+        with open("pymap/ui/localization/localization.yml") as f:
+            self.labels_names = yaml.safe_load(f)
+
     def setup_ui(self, main_window):
+        self._get_namings()
+
         main_window.setObjectName("main_window")
         main_window.resize(794, 518)
 
@@ -15,6 +22,28 @@ class Ui_MainWindow(object):
 
         self.grid_layout = QtWidgets.QGridLayout(self.central_widget)
         self.grid_layout.setObjectName("grid_layout")
+
+        self.localization_layout = QtWidgets.QGridLayout(self.central_widget)
+        self.localization_layout.setContentsMargins(0, 0, 0, 0)
+        self.localization_layout.setObjectName("localization_layout")
+        localization_spacer_item = QtWidgets.QSpacerItem(
+            40,
+            20,
+            QtWidgets.QSizePolicy.Expanding,
+            QtWidgets.QSizePolicy.Minimum,
+        )
+        self.localization_layout.addItem(localization_spacer_item, 0, 0, 1, 1)
+        self.comboBox = QtWidgets.QComboBox(self.central_widget)
+        self.comboBox.setObjectName("localizationBox")
+        self.comboBox.addItem("Russian")
+        self.comboBox.addItem("English")
+        self.comboBox.setItemData(0, "ru")
+        self.comboBox.setItemData(1, "en")
+        self.comboBox.currentIndexChanged.connect(
+            self.basic_localization_change_func
+        )
+        self.localization_layout.addWidget(self.comboBox, 0, 1, 1, 1)
+        self.grid_layout.addLayout(self.localization_layout, 0, 0, 1, 1)
 
         self.name_layout = QtWidgets.QGridLayout()
         self.name_layout.setObjectName("name_layout")
@@ -38,27 +67,22 @@ class Ui_MainWindow(object):
         self.name_label.setWordWrap(False)
         self.name_label.setObjectName("nameLabel")
         self.name_layout.addWidget(self.name_label, 0, 0, 1, 1)
-        self.grid_layout.addLayout(self.name_layout, 0, 0, 1, 1)
+        self.grid_layout.addLayout(self.name_layout, 1, 0, 1, 1)
 
         self.city_layout = QtWidgets.QHBoxLayout()
         self.city_layout.setObjectName("city_layout")
         self.city_label = QtWidgets.QLabel(self.central_widget)
-        size_policy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred
+        self.city_label.setSizePolicy(
+            QtWidgets.QSizePolicy(
+                QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred
+            )
         )
-        size_policy.setHorizontalStretch(0)
-        size_policy.setVerticalStretch(0)
-        size_policy.setHeightForWidth(
-            self.city_label.sizePolicy().hasHeightForWidth()
-        )
-        self.city_label.setSizePolicy(size_policy)
-        self.city_label.setMinimumSize(QtCore.QSize(98, 0))
         self.city_label.setObjectName("city_label")
         self.city_layout.addWidget(self.city_label)
         self.city_line_edit = QtWidgets.QLineEdit(self.central_widget)
         self.city_line_edit.setObjectName("city_line_edit")
         self.city_layout.addWidget(self.city_line_edit)
-        self.grid_layout.addLayout(self.city_layout, 1, 0, 1, 1)
+        self.grid_layout.addLayout(self.city_layout, 2, 0, 1, 1)
 
         self.address_area = QtWidgets.QScrollArea(self.central_widget)
         self.address_area.setWidgetResizable(True)
@@ -72,7 +96,7 @@ class Ui_MainWindow(object):
         self.address_grid_layout.setObjectName("address_grid_layout")
 
         self.address_area.setWidget(self.address_area_contents)
-        self.grid_layout.addWidget(self.address_area, 2, 0, 1, 1)
+        self.grid_layout.addWidget(self.address_area, 3, 0, 1, 1)
 
         self.buttons_grid_layout = QtWidgets.QGridLayout()
         self.buttons_grid_layout.setObjectName("buttons_grid_layout")
@@ -95,7 +119,7 @@ class Ui_MainWindow(object):
         self.buttons_grid_layout.addWidget(
             self.get_route_push_button, 0, 2, 1, 1
         )
-        self.grid_layout.addLayout(self.buttons_grid_layout, 3, 0, 1, 1)
+        self.grid_layout.addLayout(self.buttons_grid_layout, 4, 0, 1, 1)
         main_window.setCentralWidget(self.central_widget)
 
         self.retranslate_ui(main_window)
@@ -109,17 +133,16 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(main_window)
 
     def retranslate_ui(self, main_window):
-        _translate = QtCore.QCoreApplication.translate
-        main_window.setWindowTitle(
-            _translate("main_window", "DiscoverYourCity")
-        )
-        self.name_label.setText(
-            _translate("main_window", "Давайте построим маршрут экскурсии")
-        )
-        self.city_label.setText(_translate("main_window", "Введите город:"))
+        main_window.setWindowTitle("DiscoverYourCity")
+        self.basic_localization_change_func(0)
+
+    def basic_localization_change_func(self, index):
+        lang = self.comboBox.itemData(index)
+        self.name_label.setText(self.labels_names["name_label"][lang])
+        self.city_label.setText(self.labels_names["city_label"][lang])
         self.get_route_push_button.setText(
-            _translate("main_window", "Построить маршрут")
+            self.labels_names["get_route_push_button"][lang]
         )
         self.new_address_push_button.setText(
-            _translate("main_window", "Добавить адрес")
+            self.labels_names["new_address_push_button"][lang]
         )

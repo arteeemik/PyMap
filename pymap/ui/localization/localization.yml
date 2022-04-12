@@ -1,0 +1,30 @@
+address_label:
+    en: "Enter address:"
+    ru: "Введите адрес:"
+delete_address:
+    en: "Delete"
+    ru: "Удалить"
+single_address_error_title:
+    en: "Error"
+    ru: "Ошибка"
+single_address_error_msg:
+    en: "You cannot delete a single address"
+    ru: "Нельзя удалить единственный адрес"
+route_error_title:
+    en: "Route construction error"
+    ru: "Ошибка построения маршрута"
+route_error_msg:
+    en: "Delete the blank addresses"
+    ru: "Удалить незаполненные адреса"
+name_label:
+    en: "Let's build a tour route"
+    ru: "Давайте построим маршрут экскурсии"
+city_label:
+    en: "Enter the city:"
+    ru: "Введите город:"
+get_route_push_button:
+    en: "Draw the route"
+    ru: "Построить маршрут"
+new_address_push_button:
+    en: "New address line"
+    ru: "Добавить адрес"
